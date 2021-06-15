@@ -8,6 +8,11 @@
 
 书本详情页的url	\t author(s)（可能带生辰，是否要去除）\t	title  \t	publish_year	\t description（第二个网址无description，我默认'No description'）\t	content_url(书本内容下载链接，格式不定，优先级如下text, pdf, epub no pic, epub with pic, kindle no pic, kindle with pic, txt ASCII, HTML, RDF，剩余的稀有格式如只有音频下载链接已在./data/gutenberg_attention.txt中声明， 不同格式下载方式不同)
 
+### 注意点
+
+1. author 如果有多个，有部分会用'# '分离，剩下的部分是网页上就放在了一起，不太好分，因此未处理。
+2. author处偶尔会有生卒年份(格式：1950-1942)，或者生年至今(格式：1950-)
+
 ## 目前进展
 
 爬了第二个网址的7000本书的基本信息，content未爬取。基本信息存储在./data/gutenberg0-4999.txt以及 同目录下gutenberg5000-9999.txt。
