@@ -32,16 +32,14 @@ class guterberg_crawler:
             print("chromedriver.exe出错，请检查是否与你的chrome浏览器版本相匹配\n缺失chromedriver.exe不会导致从排行榜搜索功能失效，但会导致从关键字搜索功能失效")
 
     def leave_max(self, filename = "./guten_data/gutenberg_visited.txt"):
-        file0 = open("./guten_data/gutenberg_visited.txt", "r")
-        visited = file0.readlines()
+        with open("./guten_data/gutenberg_visited.txt", "r") as file0:
+            visited = file0.readlines()
         if len(visited)>=1:
             max_num = int(visited[-1])
         else:
             max_num = -1
-        file0.close()
-        file1 = open("./guten_data/gutenberg_visited.txt", "w")
-        file1.write(str(max_num)+"\n")
-        file1.close()
+        with open("./guten_data/gutenberg_visited.txt", "w") as file1:
+            file1.write(str(max_num)+"\n")
         return max_num
 
     def test_download(self, url):
@@ -68,8 +66,6 @@ class guterberg_crawler:
         url = "https://gutenberg.org/"
         max_visited = self.leave_max()
         print("max_visited", max_visited)
-        file2 = open("./guten_data/gutenberg_attention.txt", "a+")
-        file_object = open("./guten_data/gutenberg_"+str(start)+"-"+str(end-1)+".txt", 'a+', encoding='utf-8',buffering=-1)
         for i in range(start, end):
             if i <= max_visited:
                 continue
@@ -119,17 +115,17 @@ class guterberg_crawler:
                     break
             if content_url == 0:
                 print("\033[31;1mNo content for this book, ignored\033[0m")
-                file2.write(str(i)+" No content\n")
+                with open("./guten_data/gutenberg_attention.txt", "a+") as file2:
+                    file2.write(str(i)+" No content\n")
                 continue
             # print("content_url: ", content_url)  # 已经带了http
             # 保存数据
             print("{0:<35}\t{1:<}\t{2:<}\t{3:<5}\t{4:<15}\t{5:<}".format(current_url,author,title,publish_year,description,content_url))
-            file_object.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\n".format(current_url,author,title,publish_year,description,content_url))
+            with open("./guten_data/gutenberg_"+str(start)+"-"+str(end-1)+".txt", 'a+', encoding='utf-8',buffering=-1) as file_object:
+                file_object.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\n".format(current_url,author,title,publish_year,description,content_url))
             # 下载 text URL？
 
         # 关闭浏览器
-        file_object.close()
-        file2.close()
         # self.browser.close()
 
 crawler = guterberg_crawler()

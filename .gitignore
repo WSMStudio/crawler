@@ -125,5 +125,23 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+#pycharm
+.idea/
 # Pyre type checker
 .pyre/
+*.xml
+
+#data
+guten_data/
+smash_data/
+#guten_data/content/pg*.txt
+#guten_data/content/error.txt
+#guten_data/gutenberg_attention.txt
+#guten_data/gutenberg_visited.txt
+#smash_data/content/pa*.txt
+#smash_data/content/not_crawled.txt
+#smash_data/smash_epub.txt
+#smash_data/smash_text_bid.txt
+
+.DS_Store
+data.db

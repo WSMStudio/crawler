@@ -4,12 +4,12 @@ from parsel import Selector
 import re
 
 database = Database()
+# database.count_text_epub()
 url = "https://www.smashwords.com/books/view/{bid}"
-f = open("./smash_data/smash_epub.txt", "a", encoding="utf-8")
-for i in range(3, 20000):
+for i in range(10268, 20000):
     res = requests.get(url.format(bid=i))
     if res.status_code == 404:
-        print("No Book", i)
+        print(i, "No Book")
         continue
     selector = Selector(res.text)
 
@@ -39,19 +39,20 @@ for i in range(3, 20000):
         epub = str(i)+"\t"+download_epub_links[-1]+"\n"
 
     if epub:
-        f.write(epub)  # 如果只有epub没有TXT,记录下来
+        with open("./smash_data/smash_epub.txt", "a", encoding="utf-8") as f:
+            f.write(epub)  # 如果只有epub没有TXT,记录下来
     if not content:
-        print("Not Free, content", i)
+        print(i,"Not Free, content")
     elif not title:
-        print("Not free, title", i)
+        print(i,"Not free, title")
     elif not authr:
-        print("Not free, author", i)
+        print(i,"Not free, author")
     elif not ptime:
-        print("Not free, ptime", i)
+        print(i,"Not free, ptime")
     else:
         authr = re.sub('[0-9\'!\"$%&\\\()*+\-/:<=>?@?★、…【】《》？“”！\[\]^_`{|}~]+', "", authr)
         database.insert(i, title, authr, ptime[:4], descr, content)
-        database.printb(title)
-    # time.sleep(0.3)
+    # if i % 500 == 0:
+    #     database.count()
+    time.sleep(0.3)
 
-f.close()

@@ -34,8 +34,32 @@
 4. 就算是free大类，里面也有不少是付费的，需要进一步筛选。
 5. 可以用IP代理池，还未学会
 
-## 计划
+# 学习到的点，经验
 
-1. 总共要爬8W本以上，第二个网址相对好爬，大概65000本，剩余的爬第一个网址。计划在爬第二个网址期间，搞定右键下载的功能，省内存省加载时间不用重复爬。若不能搞定就用浏览器打开再截头去尾。
-2. 计划先将第二个网址的6W5本书的基本信息加内容可以爬后（至少有了），再研究第一个网址。
+1. 把事作对很重要，更重要的是做对的事，**多做自顶向下规划**而不是埋头猛码代码。 多做代码重用，多写函数。
+
+2. 非动态网页用基础的**requests**即可，不用**selenium**， 两者的xpath语法类似，可借鉴，requests额外还有selector.ccs()， selenium额外还有find_element或elements_by_id或link_text, xpath等等很方便。
+
+3. 可使用数据库 sqlite3，配合sql语言。
+
+4. * selenium 可以设置默认下载地址，对于那些弹窗类型的下载链接可以直接下载，但对于在当前页面打开的不行。 
+   * selenium可以设置无头模式，不弹出浏览器，如果不设置，会有浏览器弹出，方便看到程序自动化过程中的各种操作很好用。
+
+5. * 如果是代码改进后，想对已经有数据的文档如txt进行附加操作， 最好是另开一个新文档，完全调试测试后再到原文档。
+   * 如果要更新txt，比如txt里存的是还没有爬的url，然后一轮爬完后更新剩余没爬的url，最好还是另起文档，除非能确保代码没问题。**当然还有一种办法是多用git，控制版本**!
+
+6.  调试时，文件读写的可以用print来代替，先用print，调试完成再用文件读写。
+
+   ```python
+   text = str(bid) + "\thttps://www.smashwords.com" + download_txt_links[-1] + "\n"
+   print(text)
+   with open("./smash_data/content/1test_not_crawled_url.txt", "a", encoding="utf-8") as f:
+       f.write(text)
+   ```
+
+7. 下载text时，有多种可能的网址格式，有/{}/pg{}.txt或/{}/{}-0.txt或/{}/{}.txt，及时发现。
+
+8. 多线程 test_multithread_smash.py  smash_crawler3_multithread.py中都有，多线程其实对于python不麻烦，**文件读写也已测试**, with open 貌似自带文件锁，不会不同线程同时写一个txt。
+
+9. 多IP地址，已经下载了一个repo，
 
