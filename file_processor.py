@@ -103,9 +103,12 @@ def crawl_smash_overwrite():
             with open("./smash_data/content/not_crawled_url.txt", "a", encoding="utf-8") as f:
                 f.write(text)  # 如果只有epub没有TXT,记录到./smash_data/smash_epub_1.txt
 
+def count_data_number():
+    with open("./smash_data/smash_basic_info.txt", "r", encoding="utf-8") as f:
+        print(len(f.read().split("\n")[:-1]))
 
 # not_crawled2not_crawled_url()
 # complete_epub_links()
 # get_wrong_epub_bid()
 # crawl_smash_overwrite()
-
+# count_data_number()

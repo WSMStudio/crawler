@@ -1,4 +1,4 @@
-from db import *
+from database_class import *
 import re
 
 def save_text_all(Bid):

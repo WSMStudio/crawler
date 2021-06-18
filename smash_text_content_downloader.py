@@ -1,5 +1,5 @@
 import requests, time
-from db import *
+from database_class import *
 from parsel import Selector
 import re
 import copy

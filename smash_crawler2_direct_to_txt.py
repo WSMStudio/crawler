@@ -1,7 +1,7 @@
 import requests, time
 from parsel import Selector
 import re
-from guten_crawler2 import not_404
+from guten_supplemental_crawler import not_404
 
 
 if __name__ == '__main__':

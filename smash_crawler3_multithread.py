@@ -4,7 +4,7 @@ from threading import Thread
 from queue import Queue
 from parsel import Selector
 import re
-from guten_crawler2 import not_404
+from guten_supplemental_crawler import not_404
 
 def calculate_run_time(func):
     def wrapper(*args, **kw):
@@ -62,16 +62,12 @@ class Spider():
                 print(text)
                 with open("./smash_data/content/not_crawled_url.txt", "a", encoding="utf-8") as f:
                     f.write(text)  # 如果有TXT,记录到./smash_data/not_crawled_url.txt
-                # with open("./smash_data/content/not_crawled_url.txt", "a", encoding="utf-8") as f:
-                #     f.write(text)  # 如果有TXT,记录到./smash_data/not_crawled_url.txt
             else:
                 print(bid, "\033[34;1monly has epub\033[0m")
                 epub = str(bid) + "\thttps://www.smashwords.com" + download_epub_links[-1] + "\n"
                 print(epub)
                 with open("./smash_data/smash_epub_1.txt", "a", encoding="utf-8") as f:
                     f.write(epub)  # 如果只有epub没有TXT,记录到./smash_data/smash_epub_1.txt
-                # with open("./smash_data/smash_epub_1.txt", "a", encoding="utf-8") as f:
-                #     f.write(epub)  # 如果只有epub没有TXT,记录到./smash_data/smash_epub_1.txt
             if not title:
                 print(bid, "Not free, title")
             elif not authr:
@@ -87,11 +83,7 @@ class Spider():
                 print(f"{bid + 70000}\t{title}\t{authr}\t{ptime}\t{descr}\n")
                 with open("./smash_data/smash_basic_info.txt", "a", encoding="utf-8") as f:
                     f.write(f"{bid + 70000}\t{title}\t{authr}\t{ptime}\t{descr}\n")
-                # with open("./smash_data/smash_basic_info.txt", "a", encoding="utf-8") as f:
-                #     f.write(f"{bid + 70000}\t{title}\t{authr}\t{ptime}\t{descr}\n")
 
-            # self.titles.append(title)
-            # self.bids.append(bid)
 
     @calculate_run_time
     def run(self):
@@ -104,13 +96,6 @@ class Spider():
             ths.append(th)
         for th in ths:
             th.join()
-
-        # for i, datai in enumerate(self.titles):
-        #     print(self.bids[i],datai)
-        # with open('github_thread.json', 'w', encoding='utf-8') as f:
-        #     f.write(s)
-
-        # print('\nData crawling is finished.')
 
 if __name__ == '__main__':
     Spider().run()
